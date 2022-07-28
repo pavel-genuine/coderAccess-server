@@ -8,7 +8,7 @@ profileRouter.route('/')
     .get(getAllProfilesController)
     .post(addProfileController)
 
-promoRouter.route('/:id')
+    profileRouter.route('/:id')
     .get(getSingleProfileController)
     .patch(updateProfileController)
     .delete(deleteProfileController)
