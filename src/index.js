@@ -1,9 +1,8 @@
-
+const { profileRouter } = require('./routes/profiles.router');
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
 require('dotenv').config();
-const { profileRouter } = require('./routes/profiles.router');
 
 const port = process.env.PORT || 5000
 const app = express();
