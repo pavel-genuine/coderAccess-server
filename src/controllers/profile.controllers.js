@@ -7,16 +7,12 @@ const getAllProfilesController = async (req, res) => {
    const query = {}
    const cursor = profilesCollection.find(query)
    const allProfiless = await cursor.toArray()
-  
    res?.send(allProfiless)
-
-
 }
 
-
 const addProfileController = async (req, res) => {
-   const promo = req.body;
-   const result = await profilesCollection.insertOne(promo);
+   const profile = req.body;
+   const result = await profilesCollection.insertOne(profile);
    res.send(result)
 }
 
@@ -29,17 +25,15 @@ const getSingleProfileController = async (req, res) => {
 
 
 const updateProfileController = async (req, res) => {
-   const id = req.params.id;
-   const promo = req.body;
-   const filter = { _id: ObjectId(id) };
+   const email = req.params.email;
+   const user = req.body;
+   const filter = { email: email };
    const options = { upsert: true };
-   const updatedDoc = {
-       $set: {
-          
 
-       }
+   const updatedDoc = {
+       $set:user
    };
-   const result = await profilesCollection.updateOne(filter, updatedDoc, options);
+   const result = await profilesCollection.updateOne(filter, updatedDoc,options);
    res.send(result);
 
 }
