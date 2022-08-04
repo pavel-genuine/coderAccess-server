@@ -10,7 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/profile', profileRouter);
+app.use('/profiles', profileRouter);
 
 
 const expressServer = http.createServer(app)

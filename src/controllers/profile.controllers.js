@@ -1,5 +1,5 @@
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const {client} = require('../Utilis/db.config')
+const { client } = require('../Utilis/db.config')
 
 const profilesCollection = client.db('coderAccess').collection('profiles')
 
@@ -7,37 +7,31 @@ const getAllProfilesController = async (req, res) => {
    const query = {}
    const cursor = profilesCollection.find(query)
    const allProfiless = await cursor.toArray()
-  
    res?.send(allProfiless)
-
-
 }
 
-
 const addProfileController = async (req, res) => {
-   const promo = req.body;
-   const result = await profilesCollection.insertOne(promo);
+   const profile = req.body;
+   const result = await profilesCollection.insertOne(profile);
    res.send(result)
 }
 
 const getSingleProfileController = async (req, res) => {
-   const id = req.params.id
-   const query = { _id: ObjectId(id) }
-   const singleProfile = await profilesCollection.findOne(query)
-   res.send(singleProfile)
+   const email = req.params.email;
+   const query = { email: email }
+   const user = await profilesCollection.findOne(query)
+   res.send(user)
 }
 
 
 const updateProfileController = async (req, res) => {
-   const id = req.params.id;
-   const promo = req.body;
-   const filter = { _id: ObjectId(id) };
+   const email = req.params.email;
+   const user = req.body;
+   const filter = { email: email };
    const options = { upsert: true };
-   const updatedDoc = {
-       $set: {
-          
 
-       }
+   const updatedDoc = {
+      $set: user
    };
    const result = await profilesCollection.updateOne(filter, updatedDoc, options);
    res.send(result);
@@ -50,4 +44,4 @@ const deleteProfileController = async (req, res) => {
    const result = await profilesCollection.deleteOne(query);
    res.send(result);
 }
-module.exports={getAllProfilesController, addProfileController, getSingleProfileController, updateProfileController, deleteProfileController }
+module.exports = { getAllProfilesController, addProfileController, getSingleProfileController, updateProfileController, deleteProfileController }
