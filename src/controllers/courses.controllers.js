@@ -50,4 +50,4 @@ const deleteCourseController = async (req, res) => {
    const result = await coursesCollection.deleteOne(query);
    res.send(result);
 }
-module.exports={getAllCouresController, addProfileController: addCourseController, getSingleProfileController: getSingleCourseController, updateCourseController, deleteCourseController }
+module.exports={getAllCouresController, addCourseController: addCourseController, getSingleCourseController: getSingleCourseController, updateCourseController, deleteCourseController }

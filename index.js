@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const { profileRouter } = require('./src/routes/profiles.router');
-const coursesRouter = require('./src/routes/courses.router');
+const { courseRouter } = require('./src/routes/courses.router');
 
 require('dotenv').config();
 
@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/profile', profileRouter);
-app.use('/course', coursesRouter );
+app.use('/course', courseRouter );
 
 const expressServer = http.createServer(app)
 

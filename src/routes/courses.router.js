@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getAllCouresController, addProfileController: addCourseController, getSingleProfileController: getSingleCourseController, updateCourseController, deleteCourseController}= require("../controllers/course.controllers");
+const { getAllCouresController, addCourseController: addCourseController, getSingleCourseController: getSingleCourseController, updateCourseController, deleteCourseController}= require("../controllers/courses.controllers");
 
 
 const courseRouter = Router()
@@ -13,4 +13,4 @@ courseRouter.route('/')
     .patch(updateCourseController)
     .delete(deleteCourseController)
 
-module.exports = {courseRouter: courseRouter}
+module.exports = {courseRouter}
