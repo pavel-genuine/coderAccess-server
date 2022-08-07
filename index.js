@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const { profileRouter } = require('./src/routes/profiles.router');
+const coursesRouter = require('./src/routes/courses.router');
+
 require('dotenv').config();
 
 const port = process.env.PORT || 5000
@@ -11,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/profile', profileRouter);
-
+app.use('/course', coursesRouter );
 
 const expressServer = http.createServer(app)
 
