@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/profile', profileRouter);
-app.use('/course', courseRouter );
+app.use('/courses', courseRouter );
 
 const expressServer = http.createServer(app)
 
