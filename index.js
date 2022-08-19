@@ -7,6 +7,8 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const { client } = require('./src/Utilis/db.config')
 
 const { reviewProfileRouter } = require('./src/routes/reviewProfile.router');
+const { courseRouter } = require('./src/routes/courses.router');
+
 require('dotenv').config();
 
 const port = process.env.PORT || 5000
@@ -18,6 +20,8 @@ app.use(express.json());
 app.use('/profiles', profileRouter);
 app.use('/reviewProfile', reviewProfileRouter);
 
+app.use('/profile', profileRouter);
+app.use('/courses', courseRouter );
 
 const expressServer = http.createServer(app)
 
