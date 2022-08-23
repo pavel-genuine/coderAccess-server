@@ -22,25 +22,19 @@ server.listen(5000, () => {
     console.log("server is listen in port in 5000...")
 })
 
-// app.listen(port, () => {
-//     console.log('listening to port ', port);
-// })
+
 
 
 
 
 const uri = "mongodb+srv://coderAccess:d64VFIiAegQTPsYD@cluster0.23ofj.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-// client.connect(err=>{
-//     client.db("coderAccess").collection('profiles');
-//     console.log("DB connected")
 
-// })
 async function run() {
     try {
         await client.connect();
         const challenge = client.db("coderAccess").collection('challenges');
-        //   const profile = client.db("coderAccess").collection('profiles');
+   
         const Algorithim = client.db("coderAccess").collection('Algorithim');
         const Database = client.db("coderAccess").collection('Database');
         const DS = client.db("coderAccess").collection('DS');
