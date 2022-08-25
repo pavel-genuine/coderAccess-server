@@ -20,10 +20,22 @@ app.use(express.json());
 app.use('/profiles', profileRouter);
 app.use('/reviewProfile', reviewProfileRouter);
 
-app.use('/profile', profileRouter);
+// app.use('/profile', profileRouter);
 app.use('/courses', courseRouter );
 
 const expressServer = http.createServer(app)
+
+const io = require('socket.io')(expressServer, { cors: { origin: "*", } });
+io.on('connection', (socket) => {
+    console.log("what is socket : " + socket);
+    console.log("actice socket io");
+    socket.on("chat", (payload) => {
+        console.log("payload = ", payload)
+        
+       io.emit("chat", payload)
+  
+    })
+})
 
 
 expressServer.listen(port, () => {
@@ -34,8 +46,6 @@ expressServer.listen(port, () => {
 app.get('/', (req, res) => {
     res.send('server running')
 });
-
-
 
 
 
