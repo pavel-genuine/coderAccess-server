@@ -44,7 +44,7 @@ expressServer.listen(port, () => {
 
 
 app.get('/', (req, res) => {
-    res.send('server running')
+    res.send('coderAccess server running')
 });
 
 
