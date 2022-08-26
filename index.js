@@ -8,6 +8,7 @@ const { client } = require('./src/Utilis/db.config')
 
 const { reviewProfileRouter } = require('./src/routes/reviewProfile.router');
 const { courseRouter } = require('./src/routes/courses.router');
+const { blogRouter } = require('./src/routes/blogs.router');
 
 require('dotenv').config();
 
@@ -18,9 +19,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/profiles', profileRouter);
+app.use('/blogs', blogRouter);
 app.use('/reviewProfile', reviewProfileRouter);
-
-// app.use('/profile', profileRouter);
 app.use('/courses', courseRouter );
 
 const expressServer = http.createServer(app)

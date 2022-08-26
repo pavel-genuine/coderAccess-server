@@ -1,7 +1,7 @@
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const { client } = require('../Utilis/db.config')
 
-const blogsCollection = client.db('coderAccess').collection('profiles')
+const blogsCollection = client.db('coderAccess').collection('blogs')
 
 const getAllBlogsController = async (req, res) => {
    const query = {}
@@ -12,7 +12,7 @@ const getAllBlogsController = async (req, res) => {
 
 const addBlogController = async (req, res) => {
    const blog = req.body;
-   const result = await blogsCollection.insertOne(profile);
+   const result = await blogsCollection.insertOne(blog);
    res.send(result)
 }
 
@@ -28,12 +28,11 @@ const updateBlogController = async (req, res) => {
     const id = req.params.id;
    const blog = req.body;
    const filter = { _id: ObjectId(id) };
-   
-
+   const options = { upsert: true };
    const updatedDoc = {
       $set: blog
    };
-   const result = await blogsCollection.updateOne(filter, updatedDoc);
+   const result = await blogsCollection.updateOne(filter,options, updatedDoc);
    res.send(result);
 
 }
