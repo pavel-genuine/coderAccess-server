@@ -46,10 +46,8 @@ expressServer.listen(port, () => {
 
 
 app.get('/', (req, res) => {
-    res.send('coderAccess server running')
+    res.send('coderAccess express server running')
 });
-
-
 
 async function run() {
     try {
@@ -158,14 +156,6 @@ async function run() {
     }
 }
 run().catch(console.dir)
-
-
-
-
-
-
-
-
 
 
 app.get('/uploadproblem', (req, res) => {
