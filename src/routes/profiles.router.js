@@ -7,10 +7,10 @@ const profileRouter = Router()
 profileRouter.route('/')
     .get(getAllProfilesController)
     .post(addProfileController)
-
-    profileRouter.route('/:id')
+                        
+    profileRouter.route('/:email')
     .get(getSingleProfileController)
-    .patch(updateProfileController)
+    .put(updateProfileController)
     .delete(deleteProfileController)
 
 module.exports = {profileRouter}
