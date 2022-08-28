@@ -125,6 +125,16 @@ async function run() {
             const result = await corsur.toArray();
             res.send(result);
         })
+
+
+          
+        app.get('/TopicAlgo/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await Algorithim.findOne(query)
+            res.send(result);
+        })
+
         app.get('/TopicDS', async (req, res) => {
             const query = {}
             const corsur = DS.find(query)
