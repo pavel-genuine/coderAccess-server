@@ -9,6 +9,7 @@ const { client } = require('./src/Utilis/db.config')
 const { reviewProfileRouter } = require('./src/routes/reviewProfile.router');
 const { courseRouter } = require('./src/routes/courses.router');
 const { blogRouter } = require('./src/routes/blogs.router');
+const { submissionsRouter } = require('./src/routes/submissions.router');
 
 require('dotenv').config();
 
@@ -22,6 +23,7 @@ app.use('/profiles', profileRouter);
 app.use('/blogs', blogRouter);
 app.use('/reviewProfile', reviewProfileRouter);
 app.use('/courses', courseRouter );
+app.use('/submissions',submissionsRouter );
 
 const expressServer = http.createServer(app)
 

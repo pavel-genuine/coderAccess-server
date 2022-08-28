@@ -6,8 +6,8 @@ const profilesCollection = client.db('coderAccess').collection('profiles')
 const getAllProfilesController = async (req, res) => {
    const query = {}
    const cursor = profilesCollection.find(query)
-   const allProfiless = await cursor.toArray()
-   res?.send(allProfiless)
+   const allProfiles = await cursor.toArray()
+   res?.send(allProfiles)
 }
 
 const addProfileController = async (req, res) => {
