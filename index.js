@@ -46,34 +46,20 @@ expressServer.listen(port, () => {
 
 
 app.get('/', (req, res) => {
-    res.send('coderAccess express server running')
+    res.send('coderAccess exp server running')
 });
 
 async function run() {
     try {
         await client.connect();
         const challenge = client.db("coderAccess").collection('challenges');
-        //   const profile = client.db("coderAccess").collection('profiles');
+        
         const Algorithim = client.db("coderAccess").collection('Algorithim');
         const Database = client.db("coderAccess").collection('Database');
         const DS = client.db("coderAccess").collection('DS');
 
         const problem = { title: "Sum of array " };
-        // const result = await challenge.insertOne(problem)
-        //app.get()
-        // console.log("Insert")
-
-
-
-        // app.post('/uploadproblem', async (req, res) => {
-        //     const data = req?.body;
-        //     console.log(data);
-        //     const result = await challenge.insertOne(data)
-        //     console.log(result);
-        //      res.send({status:"done"})
-        // });
-
-
+      
         app.get('/challengeHard', async (req, res) => {
             const query = { type: 'Hard' };
             const corsur = challenge.find(query)
@@ -166,8 +152,3 @@ app.get('/uploadproblem', (req, res) => {
 app.get('/', (req, res) => {
     res.send('hello')
 })
-
-
-// app.listen(port, () => {
-//     console.log('listening to port ', port);
-// })
