@@ -145,7 +145,7 @@ run().catch(console.dir)
 
 
 app.get('/uploadproblem', (req, res) => {
-    res.send("Connected");
+    res.send("Connected server");
 })
 
 
