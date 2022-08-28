@@ -36,19 +36,6 @@ const updatSubmissionController = async (req, res) => {
     res.send(result);
 }
 
-// const updateProfileController = async (req, res) => {
-//     const email = req.params.email;
-//     const user = req.body;
-//     const filter = { email: email };
-//     const options = { upsert: true };
- 
-//     const updatedDoc = {
-//        $set: user
-//     };
-//     const result = await profilesCollection.updateOne(filter, updatedDoc, options);
-//     res.send(result);
- 
-//  }
 
 const deleteSubmissionController = async (req, res) => {
     const id = req.params.id;
