@@ -24,17 +24,19 @@ const getSingleBlogController = async (req, res) => {
 }
 
 
+
+
+
 const updateBlogController = async (req, res) => {
-    const id = req.params.id;
-   const blog = req.body;
+    const id = req?.params?.id;
+   const blog = req?.body;
    const filter = { _id: ObjectId(id) };
-   const options = { upsert: true };
    const updatedDoc = {
       $set: blog
    };
-   const result = await blogsCollection.updateOne(filter,options, updatedDoc);
+   const result = await blogsCollection?.updateOne(filter,updatedDoc);
+   
    res.send(result);
-
 }
 
 const deleteBlogController = async (req, res) => {
