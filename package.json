@@ -18,5 +18,10 @@
     "mongodb": "^4.8.0",
     "paypal-rest-sdk": "^1.8.1",
     "socket.io": "^4.5.1"
-  }
+  },
+  "builds": [
+    {
+        "src": "index.js",
+        "use": "@vercel/node"
+    }]
 }

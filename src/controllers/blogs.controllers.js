@@ -17,14 +17,11 @@ const addBlogController = async (req, res) => {
 }
 
 const getSingleBlogController = async (req, res) => {
-   const id = req.params.id;
+   const id = req?.params?.id;
    const query = { _id: ObjectId(id) };
    const blog = await blogsCollection.findOne(query)
    res.send(blog)
 }
-
-
-
 
 
 const updateBlogController = async (req, res) => {
