@@ -15,9 +15,21 @@ require('dotenv').config();
 
 const port = process.env.PORT || 5000
 const app = express();
-
-app.use(cors());
 app.use(express.json());
+
+const whitelist = ["http://localhost:3000","https://coder-access.web.app/"]
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error("Not allowed by CORS"))
+    }
+  },
+  credentials: true,
+}
+app.use(cors(corsOptions))
+
 
 app.use('/profiles', profileRouter);
 app.use('/blogs', blogRouter);
@@ -46,36 +58,20 @@ expressServer.listen(port, () => {
 
 
 app.get('/', (req, res) => {
-    res.send('coderAccess server running')
+    res.send('coderAccess exp server running')
 });
-
-
 
 async function run() {
     try {
         await client.connect();
         const challenge = client.db("coderAccess").collection('challenges');
-        //   const profile = client.db("coderAccess").collection('profiles');
+        
         const Algorithim = client.db("coderAccess").collection('Algorithim');
         const Database = client.db("coderAccess").collection('Database');
         const DS = client.db("coderAccess").collection('DS');
 
         const problem = { title: "Sum of array " };
-        // const result = await challenge.insertOne(problem)
-        //app.get()
-        // console.log("Insert")
-
-
-
-        // app.post('/uploadproblem', async (req, res) => {
-        //     const data = req?.body;
-        //     console.log(data);
-        //     const result = await challenge.insertOne(data)
-        //     console.log(result);
-        //      res.send({status:"done"})
-        // });
-
-
+      
         app.get('/challengeHard', async (req, res) => {
             const query = { type: 'Hard' };
             const corsur = challenge.find(query)
@@ -160,24 +156,11 @@ async function run() {
 run().catch(console.dir)
 
 
-
-
-
-
-
-
-
-
 app.get('/uploadproblem', (req, res) => {
-    res.send("Connected");
+    res.send("Connected server");
 })
 
 
 app.get('/', (req, res) => {
     res.send('hello')
 })
-
-
-// app.listen(port, () => {
-//     console.log('listening to port ', port);
-// })
