@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
-
+const stripe = require('stripe')('sk_test_51L2gBjKKjNuPS9hlwFEM3UP6GHbMiIEfgCLuVyeHiHbkPO8W2UmVMzXIh7GXcNlwUPK7fZBB4teC97xv1C14p1Iy00735W0S6x');
 const { profileRouter } = require('./src/routes/profiles.router');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const { client } = require('./src/Utilis/db.config')
@@ -10,6 +10,7 @@ const { reviewProfileRouter } = require('./src/routes/reviewProfile.router');
 const { courseRouter } = require('./src/routes/courses.router');
 const { blogRouter } = require('./src/routes/blogs.router');
 const { submissionsRouter } = require('./src/routes/submissions.router');
+const { forumRouter } = require('./src/routes/forum.router');
 
 require('dotenv').config();
 
@@ -23,6 +24,7 @@ app.use(express.json());
 
 app.use('/profiles', profileRouter);
 app.use('/blogs', blogRouter);
+app.use('/forum', forumRouter);
 app.use('/reviewProfile', reviewProfileRouter);
 app.use('/courses', courseRouter );
 app.use('/submissions',submissionsRouter );
@@ -59,6 +61,21 @@ async function run() {
         const Algorithim = client.db("coderAccess").collection('Algorithim');
         const Database = client.db("coderAccess").collection('Database');
         const DS = client.db("coderAccess").collection('DS');
+
+
+        app.post('/create-payment-intent', async (req, res) => {
+            const service = req.body;
+            const price = service.totalPrice;
+            const amount = price * 100;
+            const paymentIntent = await stripe.paymentIntents.create({
+              amount: amount,
+              currency: 'bdt',
+              payment_method_types: ['card']
+            });
+            // console.log('ppp',paymentIntent.client_secret);
+            res.send({ clientSecret: paymentIntent.client_secret })
+          });
+       
 
         const problem = { title: "Sum of array " };
       
