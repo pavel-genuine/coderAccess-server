@@ -26,8 +26,8 @@ app.use('/profiles', profileRouter);
 app.use('/blogs', blogRouter);
 app.use('/forum', forumRouter);
 app.use('/reviewProfile', reviewProfileRouter);
-app.use('/courses', courseRouter );
-app.use('/submissions',submissionsRouter );
+app.use('/courses', courseRouter);
+app.use('/submissions', submissionsRouter);
 
 const expressServer = http.createServer(app)
 
@@ -37,9 +37,9 @@ io.on('connection', (socket) => {
     console.log("actice socket io");
     socket.on("chat", (payload) => {
         console.log("payload = ", payload)
-        
-       io.emit("chat", payload)
-  
+
+        io.emit("chat", payload)
+
     })
 })
 
@@ -57,28 +57,28 @@ async function run() {
     try {
         await client.connect();
         const challenge = client.db("coderAccess").collection('challenges');
-        
+
         const Algorithim = client.db("coderAccess").collection('Algorithim');
         const Database = client.db("coderAccess").collection('Database');
         const DS = client.db("coderAccess").collection('DS');
-
+        const Addtocart = client.db("coderAccess").collection('Addtocart');
 
         app.post('/create-payment-intent', async (req, res) => {
             const service = req.body;
             const price = service.totalPrice;
             const amount = price * 100;
             const paymentIntent = await stripe.paymentIntents.create({
-              amount: amount,
-              currency: 'bdt',
-              payment_method_types: ['card']
+                amount: amount,
+                currency: 'bdt',
+                payment_method_types: ['card']
             });
             // console.log('ppp',paymentIntent.client_secret);
             res.send({ clientSecret: paymentIntent.client_secret })
-          });
-       
+        });
+
 
         const problem = { title: "Sum of array " };
-      
+
         app.get('/challengeHard', async (req, res) => {
             const query = { type: 'Hard' };
             const corsur = challenge.find(query)
@@ -132,7 +132,7 @@ async function run() {
         })
 
 
-          
+
         app.get('/TopicAlgo/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
@@ -151,6 +151,59 @@ async function run() {
             const corsur = Database.find(query)
             const result = await corsur.toArray();
             res.send(result);
+        })
+
+        app.post('/getaddcard', async (req, res) => {
+            const email = req.body.email;
+            // console.log(email);
+            const querry = { email }
+            const cursor = Addtocart.find(querry);
+            const result = await cursor.toArray();
+            res.send(result);
+
+        })
+
+
+        app.get('/additemsview/:email', async (req, res) => {
+            const email = req.params.email;
+            const querry = { email };
+            const coursor = Addtocart.find(querry);
+            const result = await coursor.toArray();
+            res.send(result);
+
+        })
+        app.post('/check', async (req, res) => {
+            // const cursor =await Addtocart.insertOne(req.body);
+            const id = req.body.id;
+            const email = req.body.email;
+            const course = req.body.course;
+            const data = { id, email, course }
+            const querry = { id, email };
+            const coursor = await Addtocart.findOne(querry);
+            if (coursor) {
+                console.log("this is not null value so value is exist")
+                res.send({ message: false });
+            }
+            else {
+                const result = Addtocart.insertOne(data);
+                console.log(result)
+                console.log("this is null value and value is inserted ");
+                res.send({ message: true });
+            }
+
+
+            console.log(coursor);
+
+
+        })
+
+        app.delete('/additemsview/:id', async (req, res) => {
+            const id = req.params.id;
+            console.log(id)
+            const querry = { _id: ObjectId(id) }
+            const result = await Addtocart.deleteOne(querry);
+            res.send(result);
+
         })
 
 
