@@ -216,11 +216,9 @@ async function run() {
 run().catch(console.dir)
 
 
-app.get('/uploadproblem', (req, res) => {
-    res.send("Connected server");
-})
-
-
-app.get('/', (req, res) => {
-    res.send('hello')
+process.on('uncaughtExceptionMonitor', (err) => {
+    console.log(err.name, err.message);
+    app.close(() => {
+        process.exit(1)
+    })
 })
