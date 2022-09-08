@@ -44,15 +44,6 @@ io.on('connection', (socket) => {
 })
 
 
-expressServer.listen(port, () => {
-    console.log('running exserver', port);
-})
-
-
-app.get('/', (req, res) => {
-    res.send('coderAccess exp server running')
-});
-
 async function run() {
     try {
         await client.connect();
@@ -215,6 +206,16 @@ async function run() {
 }
 run().catch(console.dir)
 
+
+
+expressServer.listen(port, () => {
+    console.log('running exserver', port);
+})
+
+
+app.get('/', (req, res) => {
+    res.send('coderAccess exp server running')
+});
 
 process.on('uncaughtExceptionMonitor', (err) => {
     console.log(err.name, err.message);

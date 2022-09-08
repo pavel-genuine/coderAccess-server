@@ -13,27 +13,45 @@ const getAllBlogsController = async (req, res) => {
 const addBlogController = async (req, res) => {
    const blog = req.body;
    const result = await blogsCollection.insertOne(blog);
-   res.send(result)
+   res.status(200).send({
+      success: true,
+      message: 'Successfull',
+      data: blog
+   })
+   res.status(500).send({
+      success: false,
+      error: 'failed',
+   })
+
 }
 
 const getSingleBlogController = async (req, res) => {
    const id = req?.params?.id;
    const query = { _id: ObjectId(id) };
    const blog = await blogsCollection.findOne(query)
-   res.send(blog)
+   res.status(200).send({
+      success: true,
+      message: 'Successfull',
+      data: blog
+   })
+   res.status(500).send({
+      success: false,
+      error: 'failed',
+   })
+
 }
 
 
 const updateBlogController = async (req, res) => {
-    const id = req?.params?.id;
+   const id = req?.params?.id;
    const blog = req?.body;
-   
+
    const filter = { _id: ObjectId(id) };
    const updatedDoc = {
       $set: blog
    };
-   const result = await blogsCollection?.updateOne(filter,updatedDoc);
-   
+   const result = await blogsCollection?.updateOne(filter, updatedDoc);
+
    res.send(result);
 }
 
