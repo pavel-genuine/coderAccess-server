@@ -217,9 +217,4 @@ app.get('/', (req, res) => {
     res.send('coderAccess exp server running')
 });
 
-process.on('uncaughtExceptionMonitor', (err) => {
-    console.log(err.name, err.message);
-    app.close(() => {
-        process.exit(1)
-    })
-})
+
